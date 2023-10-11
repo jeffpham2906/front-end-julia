@@ -1,0 +1,99 @@
+{
+  "users": [
+    {
+      "username": "jeffpham",
+      "password": "dungyc123"
+    },
+    {
+      "username": "test",
+      "password": "1234"
+    }
+  ],
+  "products": [
+    {
+      "product_id": 1,
+      "product_name": "422",
+      "product_price": 99000,
+      "product_discount": 16000,
+      "status": "Đang bán",
+      "img": "src/assets/anhsp1.jpg"
+    },
+    {
+      "product_id": 2,
+      "product_name": "123",
+      "product_price": 19000,
+      "product_discount": 36000,
+      "status": "Đang bán",
+      "img": "src/assets/anhsp2.jpg"
+    },
+    {
+      "product_id": 3,
+      "product_name": "221",
+      "product_price": 39000,
+      "product_discount": 26000,
+      "status": "Đang bán",
+      "img": "src/assets/anhsp3.jpg"
+    },
+    {
+      "product_id": 4,
+      "product_name": "325",
+      "product_price": 59000,
+      "product_discount": 46000,
+      "status": "Đang bán",
+      "img": "src/assets/anhsp4.jpg"
+    },
+    {
+      "product_id": 5,
+      "product_name": "922",
+      "product_price": 69000,
+      "product_discount": 36000,
+      "status": "Đang bán",
+      "img": "src/assets/anhsp5.jpg"
+    },
+    {
+      "product_id": 6,
+      "product_name": "922",
+      "product_price": 69000,
+      "product_discount": 36000,
+      "status": "Đang bán",
+      "img": "src/assets/anhsp6.jpg"
+    }
+  ],
+  "orders": [
+    {
+      "id": "320139123125885",
+      "order_products": [
+        {
+          "id": "2099",
+          "img": "src/assets/anhsp1.jpg",
+          "name": "422",
+          "quantity": 1,
+          "size": "Size XS",
+          "form": "Tròn nhọn",
+          "note": "",
+          "status": "Đã phân phối"
+        },
+        {
+          "id": "44268",
+          "img": "src/assets/anhsp2.jpg",
+          "name": "1576",
+          "quantity": 2,
+          "size": "Size M",
+          "form": "Nhọn",
+          "note": "",
+          "status": "Đã hoàn thành"
+        },
+        {
+          "id": "780798",
+          "img": "src/assets/anhsp3.jpg",
+          "name": "46452",
+          "quantity": 1,
+          "size": "Size L",
+          "form": "Vuông",
+          "note": "1/2/3/5/6",
+          "status": "Chưa phân phối"
+        }
+      ]
+    }
+  ]
+}

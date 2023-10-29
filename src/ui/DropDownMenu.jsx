@@ -43,7 +43,7 @@ function DropDownMenu({
                 style={selected === e ? { backgroundColor: "#ccfbf1" } : {}}
                 className="grid place-content-center rounded-md py-1 hover:bg-teal-100 sm:text-sm"
               >
-                {e}
+                <p>{e}</p>
               </li>
             ))}
           </ul>

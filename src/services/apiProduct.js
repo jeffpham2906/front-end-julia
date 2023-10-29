@@ -2,15 +2,9 @@ import supabase from './supabase'
 import { BACKEND_URL } from '../Constants/BACKEND_URL'
 import toast from 'react-hot-toast'
 
-export async function getProducts({ userToken }) {
+export async function getProducts() {
     try {
-        const res = await fetch(`${BACKEND_URL}/products`, {
-            method: "GET",
-            mode: 'cors',
-            headers: {
-                Authorization: `Bearer ${userToken}`
-            }
-        })
+        const res = await fetch(`${BACKEND_URL}/products`, { credentials: 'include' })
         const data = await res.json()
         if (data.status === "failed") throw new Error(data.message)
         return data.products
@@ -28,6 +22,7 @@ export async function createEditProduct(newProduct) {
         const res = await fetch(`${BACKEND_URL}/products`, {
             method: "POST",
             mode: 'cors',
+            credentials: 'include',
             headers: {
                 "Content-Type": "application/json"
             },
@@ -52,6 +47,7 @@ export async function deleteProduct({ id, image }) {
         const res = await fetch(`${BACKEND_URL}/products/${id}`, {
             method: "DELETE",
             mode: 'cors',
+            credentials: 'include'
         })
         const data = await res.json()
         if (data.status === "failed") throw new Error(data.message)
@@ -71,6 +67,7 @@ export async function updateProduct({ newProductData, changeImage, staleImage })
         const res = await fetch(`${BACKEND_URL}/products/${newProductData._id}`, {
             method: "PUT",
             mode: "cors",
+            credentials: 'include',
             headers: {
                 "Content-Type": "application/json"
             },

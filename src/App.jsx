@@ -1,12 +1,12 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { AuthProvider } from "./Contexts/AuthProvider";
+// import { AuthProvider } from "./Contexts/AuthProvider";
 // import { OrdersProvider } from "./Contexts/OrdersProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
 
 import ProtectedRoute from "./ui/ProtectedRoute";
-import { ChoosenListOrdersProvider } from "./features/Orders/ChoosenListOrdersProvider";
+import { OrdersProvider } from "./Contexts/OrdersProvider";
 
 import AppLayout from "./layouts/AppLayout";
 
@@ -33,53 +33,53 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
-      <AuthProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route element={<AuthPage />}>
-              <Route index element={<Navigate replace to="login" />} />
-              <Route path="login" element={<LoginForm />} />
-              <Route path="signup" element={<SignUpForm />} />
-            </Route>
+      {/* <AuthProvider> */}
+      <BrowserRouter>
+        <Routes>
+          <Route element={<AuthPage />}>
+            <Route index element={<Navigate replace to="login" />} />
+            <Route path="login" element={<LoginForm />} />
+            <Route path="signup" element={<SignUpForm />} />
+          </Route>
+          <Route
+            element={
+              <ProtectedRoute>
+                <AppLayout />
+              </ProtectedRoute>
+            }
+          >
+            <Route index element={<Navigate replace to="home" />} />
+            <Route path="home" element={<HomePage />} />
             <Route
+              path="orders"
               element={
-                <ProtectedRoute>
-                  <AppLayout />
-                </ProtectedRoute>
+                <OrdersProvider>
+                  <OrdersPage />
+                </OrdersProvider>
               }
-            >
-              <Route index element={<Navigate replace to="home" />} />
-              <Route path="home" element={<HomePage />} />
-              <Route
-                path="orders"
-                element={
-                  <ChoosenListOrdersProvider>
-                    <OrdersPage />
-                  </ChoosenListOrdersProvider>
-                }
-              />
-              <Route path="salary" element={<SalaryPage />} />
-              <Route path="users" element={<UserPage />} />
-              <Route path="checking" element={<CheckingPage />} />
-              <Route path="gallery" element={<Gallery />} />
-              <Route path="settings" element={<SettingsPage />} />
-            </Route>
-            <Route path="*" element={<p>Page do not exist</p>}></Route>
-          </Routes>
-        </BrowserRouter>
-        <Toaster
-          position="top-center"
-          containerStyle={{ margin: "8px" }}
-          toastOptions={{
-            success: {
-              duration: 3000,
-            },
-            error: {
-              duration: 4000,
-            },
-          }}
-        />
-      </AuthProvider>
+            />
+            <Route path="salary" element={<SalaryPage />} />
+            <Route path="users" element={<UserPage />} />
+            <Route path="checking" element={<CheckingPage />} />
+            <Route path="gallery" element={<Gallery />} />
+            <Route path="settings" element={<SettingsPage />} />
+          </Route>
+          <Route path="*" element={<p>Page do not exist</p>}></Route>
+        </Routes>
+      </BrowserRouter>
+      <Toaster
+        position="top-center"
+        containerStyle={{ margin: "8px" }}
+        toastOptions={{
+          success: {
+            duration: 3000,
+          },
+          error: {
+            duration: 4000,
+          },
+        }}
+      />
+      {/* </AuthProvider> */}
     </QueryClientProvider>
   );
 }

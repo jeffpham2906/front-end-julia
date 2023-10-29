@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HiOutlineEllipsisVertical } from "react-icons/hi2";
 import useCreateOrder from "./useCreateOrder";
 import toast from "react-hot-toast";
@@ -13,7 +13,7 @@ import useQueryCache from "./useQueryCache";
 import useDeleteOrder from "./useDeleteOrder";
 import Modal from "../../ui/Modal";
 import Spinner from "../../ui/Spinner";
-import { useChoosenListOrders } from "./ChoosenListOrdersProvider";
+import { useOrder } from "../../Contexts/OrdersProvider";
 
 const newProduct = {
   form: "",
@@ -25,8 +25,11 @@ const newProduct = {
 };
 
 function OrderRow({ order: data }) {
-  const { choosenListOrders, setChoosenListOrders } = useChoosenListOrders();
+  const { choosenListOrders, setChoosenListOrders } = useOrder();
   const [order, setOrder] = useState(data);
+  useEffect(() => {
+    setOrder(data);
+  }, [data]);
   const [isChanging, setIsChanging] = useState(Boolean(!order.orderID));
 
   const { createOrder, isCreating } = useCreateOrder();
@@ -87,7 +90,7 @@ function OrderRow({ order: data }) {
           <Spinner />
         </Modal>
       )}
-      <div className="grid grid-cols-[auto,3fr,1fr,1fr,2.5fr,1fr,1rem] items-center gap-x-4 gap-y-2">
+      <div className="grid grid-cols-[auto,3fr,1fr,1fr,2.5fr,1fr,1rem] items-center gap-x-4 gap-y-2 sm:grid-cols-[auto,2fr,1fr,1fr] sm:gap-y-0 sm:text-sm">
         <div>
           <input
             checked={choosenListOrders.includes(order._id)}
@@ -107,12 +110,12 @@ function OrderRow({ order: data }) {
             })
           }
         />
-        <div className="col-start-3 col-end-6"></div>
-        <p>{order?.status}</p>
+        <div className="col-start-3 col-end-6 sm:col-auto"></div>
+        <p className="sm:hidden">{order?.staff_name || "Chưa chia"}</p>
 
         {/** Hidden action button when adding or updating */}
         {!isChanging ? (
-          <div className="cursor-pointer">
+          <div className="cursor-pointer sm:hidden">
             <DropDownMenu
               listOptions={["Phân phối", "Chỉnh sửa", "Xóa"]}
               icon={<HiOutlineEllipsisVertical size={20} />}
@@ -159,7 +162,7 @@ function OrderRow({ order: data }) {
           </>
         )}
         {/* Create space between order */}
-        <div className="col-start-1 col-end-8 h-2"></div>
+        <div className="col-start-1 col-end-8 flex h-2 sm:col-end-5 sm:h-5"></div>
       </div>
     </>
   );

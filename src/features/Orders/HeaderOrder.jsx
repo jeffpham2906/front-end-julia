@@ -1,20 +1,21 @@
 import { HiOutlineReceiptRefund } from "react-icons/hi2";
 import { useState } from "react";
-import { useChoosenListOrders } from "./ChoosenListOrdersProvider";
+import { useOrder } from "../../Contexts/OrdersProvider";
 
-import Heading from "../../ui/Heading";
 import HeaderWrapper from "../../ui/HeaderWrapper";
 import SearchForm from "../../ui/SearchForm";
 import Button from "../../ui/Button";
 import ModalStaffs from "./ModalStaffs";
 function HeaderOrder() {
-  const { choosenListOrders } = useChoosenListOrders();
+  const { isStaff } = JSON.parse(sessionStorage.getItem("user"));
+  const { choosenListOrders } = useOrder();
   const [showStaffs, setShowStaffs] = useState(false);
+  
   return (
     <>
       {showStaffs && <ModalStaffs setShowStaffs={setShowStaffs} />}
       <HeaderWrapper>
-        <Heading>Orders</Heading>
+        <h1 className="text-3xl sm:text-2xl">Orders</h1>
         <div className="flex gap-4">
           <SearchForm placeholder="Nhập ID đơn hàng" />
           <Button
@@ -28,9 +29,14 @@ function HeaderOrder() {
               />
             }
             disableBtn={choosenListOrders.length === 0}
-            onClick={() => setShowStaffs(true)}
+            onClick={() => {
+              if (!isStaff) return setShowStaffs(true);
+              console.log("Check request", choosenListOrders);
+            }}
           >
-            Phân phối
+            <p className="sm:hidden">
+              {isStaff ? "Yêu cầu duyệt" : "Phân phối"}
+            </p>
             {choosenListOrders.length > 0 ? choosenListOrders.length : ""}
           </Button>
         </div>

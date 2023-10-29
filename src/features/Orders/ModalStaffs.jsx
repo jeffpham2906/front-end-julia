@@ -5,24 +5,27 @@ import Heading from "../../ui/Heading";
 import Modal from "../../ui/Modal";
 
 import { useState } from "react";
-import { useChoosenListOrders } from "./ChoosenListOrdersProvider";
-import useUpdateStaff from "../Users/useUpdateStaff";
+import { useOrder } from "../../Contexts/OrdersProvider";
+import useAddStaffOrder from "./useAddStaffOrder";
 
 function ModalStaffs({ setShowStaffs }) {
   const { staffs, isGetting, getError } = useGetAllStaffs();
-  const { updateStaff, isUpdating, updateError, isSuccess } = useUpdateStaff();
+  const { choosenListOrders, setChoosenListOrders } = useOrder();
+
+  const { addStaffOrder, isUpdating, updateError } = useAddStaffOrder({
+    setShowStaffs,
+  });
   const isLoading = isGetting || isUpdating;
   const error = getError || updateError;
   const [staffChoosen, setStaffChoosen] = useState();
-  const { choosenListOrders } = useChoosenListOrders();
   function handleDistribute(staff) {
-    updateStaff({
+    addStaffOrder({
       data: {
         staff_id: staff,
         orders: choosenListOrders,
       },
     });
-    if (isSuccess) return setShowStaffs(false);
+    setChoosenListOrders([]);
   }
   return (
     <>

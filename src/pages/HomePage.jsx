@@ -1,7 +1,7 @@
 import { useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-import ListByOrder from "../features/ListByOrder";
+import FilterOrder from "../ui/FilterOrder";
 import RankList from "../features/Dashboard/RankList";
 import SummaryList from "../features/SummaryList";
 import PieTotalPart from "../features/Dashboard/PieTotalPart";
@@ -32,7 +32,7 @@ function HomePage() {
     <>
       <HeaderWrapper>
         <Heading>Dashboard{data}</Heading>
-        <ListByOrder lists={[TODAY, SEVEN_DAY, THIRTY_DAY, ALLIST]} />
+        <FilterOrder lists={[TODAY, SEVEN_DAY, THIRTY_DAY, ALLIST]} />
       </HeaderWrapper>
       <SummaryList />
       <div className="grid grid-cols-2 gap-8 ">

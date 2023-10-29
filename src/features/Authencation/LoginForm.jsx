@@ -15,23 +15,22 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../Contexts/AuthProvider";
+// import { useAuth } from "../../Contexts/AuthProvider";
 import toast from "react-hot-toast";
+import useLogin from "./useLogin";
 
 function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
+  const [isStaff, setIsStaff] = useState(false);
   const { register, handleSubmit } = useForm();
-  const { isLoading, errorLogin, login, user } = useAuth();
+  const { isLoading, login, error, onSuccess } = useLogin(isStaff);
   const navigate = useNavigate();
-  useEffect(() => {
-    if (errorLogin) toast.error(errorLogin);
-  }, [errorLogin]);
   const onSubmit = (data) => login(data);
-  
-
   useEffect(() => {
-    if (user) return navigate("/home");
-  }, [user, navigate]);
+    if (error) toast.error(error);
+    if (onSuccess) navigate("/home");
+    if (JSON.parse(sessionStorage.getItem("user"))) navigate("/home");
+  }, [error, onSuccess, navigate]);
   return (
     <>
       {isLoading && (
@@ -75,6 +74,14 @@ function LoginForm() {
             </span>
           </div>
         </FormRow>
+        <div className="mb-6 flex items-center justify-end gap-2">
+          <Label name="Staff" />
+          <input
+            type="checkbox"
+            value={isStaff}
+            onChange={(e) => setIsStaff(e.target.checked)}
+          />
+        </div>
 
         <Button type="primary" width="full">
           Submit

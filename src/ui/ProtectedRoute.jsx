@@ -1,26 +1,22 @@
 /* eslint-disable react/prop-types */
 import { useEffect } from "react";
-import { useAuth } from "../Contexts/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import Modal from "./Modal";
 import Spinner from "./Spinner";
 
 function ProtectedRoute({ children }) {
-  const { user } = useAuth();
   const navigate = useNavigate();
+  let user = Boolean(JSON.parse(sessionStorage.getItem("user")));
   useEffect(
     function () {
-      if (!user) navigate("/login");
+      if (!user) navigate("/");
     },
-    [user, navigate],
+    [navigate, user],
   );
   if (!user)
     return (
       <Modal>
-        <div className="flex flex-col gap-4 items-center">
-          <Spinner />
-          <p>You need to login first</p>
-        </div>
+        <Spinner />
       </Modal>
     );
   return <div>{children}</div>;

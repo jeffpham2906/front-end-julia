@@ -30,6 +30,24 @@ function SignUpForm() {
       )}
       <h1 className="mb-10 text-4xl">Đăng ký tài khoản</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
+      <FormRow>
+          <Label name="Tên doanh nghiệp" />
+          <Input
+            type="text"
+            register={{
+              ...register("displayName", {
+                required: "Vui lòng nhập tên doanh nghiep",
+                minLength: {
+                  value: 3,
+                  message: "Tối thiểu 3 ký tự",
+                },
+              }),
+            }}
+          />
+          {errors["username"]?.message && (
+            <ErrorMessage>{errors["password"]?.message}</ErrorMessage>
+          )}
+        </FormRow>
         <FormRow>
           <Label name="Tên đăng nhập" />
           <Input

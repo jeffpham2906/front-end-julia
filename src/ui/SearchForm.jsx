@@ -5,7 +5,7 @@ function SearchForm({ query, setQuery, placeholder }) {
     <div className="relative">
       <input
         type="text"
-        className="rounded-md border pl-4 pr-10 py-2 shadow-sm md:w-full"
+        className="rounded-md border py-2 pl-4 pr-10 shadow-sm sm:w-full sm:py-1"
         placeholder={placeholder}
         value={query}
         onChange={(e) => setQuery(e.target.value)}

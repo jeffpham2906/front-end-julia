@@ -44,8 +44,8 @@ function OrderProductRow({ product, isChanging, setOrder }) {
         />
       )}
 
-      <div></div>
-      <div className="grid grid-cols-[4.5rem,1fr,4rem] items-center gap-x-3">
+      <div className=""></div>
+      <div className="grid grid-cols-[4.5rem,1fr,4rem] items-center gap-x-3 sm:col-start-2 sm:grid-cols-[1fr,4rem]">
         {!haveImage ? (
           <div
             onClick={() => {
@@ -61,7 +61,7 @@ function OrderProductRow({ product, isChanging, setOrder }) {
             <img
               src={`${IMAGE_URL_API}/${product.image}`}
               alt="anhsp"
-              className="h-16 w-full cursor-pointer rounded-md"
+              className="h-16 w-full cursor-pointer rounded-md sm:hidden"
               onClick={() => {
                 if (isChanging) setSearchProductMode(!searchProductMode);
               }}
@@ -120,7 +120,7 @@ function OrderProductRow({ product, isChanging, setOrder }) {
       <select
         className={`bg-inherit ${
           !isChanging
-            ? "w-4/5 appearance-none disabled:opacity-100"
+            ? "w-4/5 appearance-none disabled:opacity-100 sm:w-full"
             : "w-full rounded-md border border-gray-400 px-2 py-1"
         }`}
         disabled={!isChanging}
@@ -143,7 +143,7 @@ function OrderProductRow({ product, isChanging, setOrder }) {
       </select>
 
       <input
-        className={`col-start-5 col-end-7 w-full rounded-md border px-2 py-1 ${
+        className={`col-start-5 col-end-7 w-full rounded-md border px-2 py-1 sm:col-start-2 sm:col-end-4 ${
           isChanging && "border-gray-400"
         }`}
         placeholder="Ghi chú"
@@ -152,7 +152,7 @@ function OrderProductRow({ product, isChanging, setOrder }) {
         onChange={(e) => updateProduct({ data: { note: e.target.value } })}
       />
       <div
-        className="cursor-pointer"
+        className="cursor-pointer sm:hidden"
         onClick={() => deleteProduct(product?.fake_id || product._id)}
       >
         {isChanging ? "Xóa" : ""}

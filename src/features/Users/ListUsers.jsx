@@ -20,9 +20,7 @@ function ListUsers() {
           {staffs?.map((user) => (
             <UserRow
               key={user._id}
-              displayName={user.displayName}
-              username={user.username}
-              totalOrder={user.orders.length}
+              user={user}
             />
           ))}
         </div>

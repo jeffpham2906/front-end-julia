@@ -47,7 +47,7 @@ function ModalSearchProduct({ onCloseModal, updateProduct }) {
                 <p>{pro.name}</p>
               </span>
               <p>{FormatVND.format(pro.price)}</p>
-              <p>{FormatVND.format(pro.revenue)}</p>
+              <p>{FormatVND.format(pro.commission)}</p>
             </li>
           ))}
         </ul>

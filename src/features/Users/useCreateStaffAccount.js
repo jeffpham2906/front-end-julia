@@ -5,7 +5,7 @@ import { signUpStaffAccount } from "../../services/apiStaff";
 function useCreateStaffAccount() {
     const queryClient = useQueryClient()
     const { mutate: createStaffAccount, isLoading, error } = useMutation({
-        mutationFn: ({ data }) => signUpStaffAccount({ data }),
+        mutationFn: signUpStaffAccount,
         onSuccess: () => {
             toast.success("Đăng ký tài khoản nhân viên thành công")
             queryClient.invalidateQueries({ queryKey: ['staffs'] })

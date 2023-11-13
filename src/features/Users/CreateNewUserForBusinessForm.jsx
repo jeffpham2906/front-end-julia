@@ -20,7 +20,7 @@ function CreateNewUserForBusinessForm({ onCloseModal }) {
   const { createStaffAccount, isLoading, error } = useCreateStaffAccount();
 
   const onSubmit = (data) => {
-    createStaffAccount({ data });
+    createStaffAccount(data);
     if (error) return;
     onCloseModal();
   };

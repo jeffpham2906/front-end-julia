@@ -28,9 +28,10 @@ export default function ListOrders() {
       <div className="mb-4 ">
         <HeaderListOrders />
         {!error &&
-          orders?.map((order) => (
-            <OrderRow key={order._id || order.fake_id} order={order} />
-          ))}
+         orders.length > 0 ?  orders.map((order) => (
+          <OrderRow key={order._id || order.fake_id} order={order} />
+        )) : <p>Khong co don hang</p>
+         }
 
         {!isStaff && (
           <Button

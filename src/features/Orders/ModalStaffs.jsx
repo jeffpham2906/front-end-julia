@@ -36,17 +36,21 @@ function ModalStaffs({ setShowStaffs }) {
           <>
             <ul className="mb-4 flex flex-col">
               <Heading type="secondary">Danh sách nhân viên</Heading>
-              {staffs.map((staff) => (
-                <li
-                  key={staff._id}
-                  className={`cursor-pointer rounded-md p-2 hover:bg-teal-100 ${
-                    staffChoosen === staff._id && "bg-teal-100"
-                  }`}
-                  onClick={() => setStaffChoosen(staff._id)}
-                >
-                  {staff.displayName}
-                </li>
-              ))}
+              {staffs.length > 0 ? (
+                staffs.map((staff) => (
+                  <li
+                    key={staff._id}
+                    className={`cursor-pointer rounded-md p-2 hover:bg-teal-100 ${
+                      staffChoosen === staff._id && "bg-teal-100"
+                    }`}
+                    onClick={() => setStaffChoosen(staff._id)}
+                  >
+                    {staff.displayName}
+                  </li>
+                ))
+              ) : (
+                <p>Không có nhân viên</p>
+              )}
             </ul>
             <div className="flex items-center justify-center">
               <Button

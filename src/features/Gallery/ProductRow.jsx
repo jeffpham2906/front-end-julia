@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-
 import {
   HiOutlinePencil,
   HiOutlineTrash,
@@ -21,7 +19,7 @@ import useDeleteProduct from "./useDeleteProduct";
 function ProductRow({ product }) {
   const [showEditForm, setShowEditForm] = useState(false);
   const { isDeleting, deleteProduct } = useDeleteProduct();
-  const { _id: productID, name, revenue, price, status, image } = product;
+  const { _id: productID, name, commission, price, image } = product;
 
   return (
     <>
@@ -45,7 +43,7 @@ function ProductRow({ product }) {
       </div>
       <div>{name}</div>
       <div>{FormatVND.format(price)}</div>
-      <div>{FormatVND.format(revenue)}</div>
+      <div>{FormatVND.format(commission)}</div>
       <div className="flex justify-end text-base">
         <div className="p-1 sm:hidden">
           <ButtonAction
@@ -54,7 +52,7 @@ function ProductRow({ product }) {
             name="Edit"
           />
           <ButtonAction
-            onClick={() => deleteProduct({ id: productID, image })}
+            onClick={() => deleteProduct(productID)}
             icon={<HiOutlineTrash />}
             name="Remove"
           />
@@ -64,9 +62,9 @@ function ProductRow({ product }) {
             listOptions={["Edit", "Remove"]}
             onClick={(label) => {
               if (label === "Edit") return (() => setShowEditForm(true))();
-              if (label === "Remove")
-                return (() => deleteProduct({ id: productID, image }))();
-              return toast.error("Cannot be selected");
+              if (label === "Remove") {
+                deleteProduct(productID);
+              }
             }}
             icon={<HiOutlineEllipsisVertical />}
           />

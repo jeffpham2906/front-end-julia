@@ -4,8 +4,7 @@ import { toast } from "react-hot-toast";
 function useUpdateProduct({ setShowModal, reset }) {
     const queryClient = useQueryClient();
     const { mutate: updateProduct, isLoading: isUpdating } = useMutation({
-        mutationFn: ({ newProductData, changeImage, staleImage }) =>
-            updateProductApi({ newProductData, changeImage, staleImage }),
+        mutationFn: ({ formData, editProductID }) => updateProductApi({ formData, editProductID }),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["product"] });
             toast.success("Cập nhật thành công sản phẩm");

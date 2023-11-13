@@ -1,6 +1,3 @@
-import { useSearchParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-
 import FilterOrder from "../ui/FilterOrder";
 import RankList from "../features/Dashboard/RankList";
 import SummaryList from "../features/SummaryList";
@@ -16,22 +13,10 @@ import {
 } from "../Constants/OrderListConstant";
 
 function HomePage() {
-  let [searchParams] = useSearchParams();
-  const [data, setData] = useState(1);
-
-  useEffect(
-    function () {
-      const day = searchParams.get("day");
-      console.log(day);
-      setData(day);
-    },
-    [searchParams],
-  );
-
   return (
     <>
       <HeaderWrapper>
-        <Heading>Dashboard{data}</Heading>
+        <Heading>Dashboard</Heading>
         <FilterOrder lists={[TODAY, SEVEN_DAY, THIRTY_DAY, ALLIST]} />
       </HeaderWrapper>
       <SummaryList />

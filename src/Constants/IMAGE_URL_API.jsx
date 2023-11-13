@@ -1,2 +1,1 @@
-import { supabaseUrl } from "../services/supabase"
-export const IMAGE_URL_API = `${supabaseUrl}/storage/v1/object/public/product-images/`
+export const IMAGE_URL_API = `http://localhost:9000/images/products`

@@ -1,16 +1,15 @@
 import { useState } from "react"
 import { BACKEND_URL } from "../../Constants/BACKEND_URL"
+import toast from "react-hot-toast"
 
-function useLogin(isStaff) {
+function useLogin() {
     const [isLoading, setIsLoading] = useState(false)
-    const [error, setError] = useState()
     const [onSuccess, setOnSuccess] = useState(false)
     async function login(data) {
         try {
             setIsLoading(true)
-            setError('')
             setOnSuccess(false)
-            const res = await fetch(`${BACKEND_URL}/users/login?role=${isStaff ? 'staff' : 'admin'}`, {
+            const res = await fetch(`${BACKEND_URL}/users/login`, {
                 method: 'POST',
                 mode: 'cors',
                 headers: {
@@ -20,17 +19,18 @@ function useLogin(isStaff) {
                 body: JSON.stringify(data)
             })
             const resData = await res.json()
-            if (resData.status === 'failed') throw new Error(resData.message)
+            if (resData.status === 'fail') throw new Error(resData.message)
             setOnSuccess(true)
             sessionStorage.setItem('user', JSON.stringify(resData.data.user))
         } catch (error) {
-            setError(error.message)
+            console.error(error.message)
+            toast.error(error.message)
         } finally {
             setIsLoading(false)
         }
     }
 
-    return { isLoading, error, login, onSuccess }
+    return { isLoading, login, onSuccess }
 
 }
 

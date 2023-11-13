@@ -1,4 +1,4 @@
-import supabase from './supabase'
+// import supabase from './supabase'
 import { BACKEND_URL } from '../Constants/BACKEND_URL'
 import toast from 'react-hot-toast'
 
@@ -6,7 +6,7 @@ export async function getProducts() {
     try {
         const res = await fetch(`${BACKEND_URL}/products`, { credentials: 'include' })
         const data = await res.json()
-        if (data.status === "failed") throw new Error(data.message)
+        if (data.status === "fail") throw new Error(data.message)
         return data.products
     } catch (error) {
         console.log(error)
@@ -14,90 +14,49 @@ export async function getProducts() {
     }
 }
 
-export async function createEditProduct(newProduct) {
-
+export async function createEditProduct(formData) {
+    // console.log(formData)
     try {
-        const file = newProduct.image
-        const fileName = await uploadFile(file)
         const res = await fetch(`${BACKEND_URL}/products`, {
             method: "POST",
             mode: 'cors',
             credentials: 'include',
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ ...newProduct, image: fileName })
+            body: formData
         })
         const data = await res.json()
-        if (data.status === "failed") throw new Error(data.message)
+        if (data.status === "fail") throw new Error(data.message)
         return;
     } catch (error) {
-        throw new Error("Failed to create new product")
+        console.error(error.message)
     }
-
-
 }
-export async function deleteProduct({ id, image }) {
-    console.log("id", id)
-    console.log("image", image)
-
-    await deleteFile(image)
-
+export async function deleteProduct(product_id) {
     try {
-        const res = await fetch(`${BACKEND_URL}/products/${id}`, {
+        const res = await fetch(`${BACKEND_URL}/products/${product_id}`, {
             method: "DELETE",
             mode: 'cors',
             credentials: 'include'
         })
         const data = await res.json()
-        if (data.status === "failed") throw new Error(data.message)
+        if (data.status === "fail") throw new Error(data.message)
         return;
     } catch (error) {
-        throw new Error("Failed to delete product")
+        console.error(error.message)
     }
 
 }
-export async function updateProduct({ newProductData, changeImage, staleImage }) {
-    let fileName = ''
+export async function updateProduct({ formData, editProductID }) {
     try {
-        if (changeImage) {
-            fileName = await uploadFile(newProductData.image)
-            await deleteFile(staleImage)
-        }
-        const res = await fetch(`${BACKEND_URL}/products/${newProductData._id}`, {
+        const res = await fetch(`${BACKEND_URL}/products/${editProductID}`, {
             method: "PUT",
             mode: "cors",
             credentials: 'include',
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ ...newProductData, image: changeImage ? fileName : newProductData.image })
+            body: formData
         })
         const data = await res.json()
-
-        if (data.status === "failed") throw new Error(data.message)
+        if (data.status === "fail") throw new Error(data.message)
         return;
     } catch (error) {
-        throw new Error("Failed to update product")
+        console.error(error.message)
     }
-}
-
-async function uploadFile(file) {
-    const fileName = `${Math.floor(Math.random() * 100000)}${file.name}`
-    const { error } = await supabase
-        .storage
-        .from('product-images')
-        .upload(fileName, file, {
-            cacheControl: '3600',
-            upsert: false
-        })
-    if (error) throw new Error("Cannot upload image")
-    return fileName
-}
-async function deleteFile(imageName) {
-    const { error } = await supabase
-        .storage
-        .from('product-images')
-        .remove([imageName])
-    if (error) throw new Error("Failed to delete image")
 }

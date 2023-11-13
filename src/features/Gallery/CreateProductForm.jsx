@@ -30,21 +30,18 @@ function CreateProductForm({ setShowModal, editProduct = {} }) {
   });
 
   function onSubmit(data) {
+    const formData = new FormData();
+    formData.append("name", data.name);
+    formData.append("commission", data.commission);
+    formData.append("price", data.price);
     if (isSessionEdit) {
       if (dirtyFields.image) {
-        updateProduct({
-          newProductData: { ...data, _id: editProductID, image: data.image[0] },
-          changeImage: dirtyFields.image,
-          staleImage: defaultValues.image
-        });
-      } else {
-        updateProduct({
-          newProductData: { ...data, _id: editProductID },
-          changeImage: dirtyFields.image,
-        });
+        formData.append("image", data.image[0]);
       }
+      updateProduct({ formData, editProductID });
     } else {
-      createProduct({ ...data, image: data.image[0] });
+      formData.append("image", data.image[0]);
+      createProduct(formData);
     }
   }
   const isWorking = isCreating || isUpdating;
@@ -56,7 +53,11 @@ function CreateProductForm({ setShowModal, editProduct = {} }) {
           <Spinner />
         </Modal>
       )}
-      <form className="w-fit" onSubmit={handleSubmit(onSubmit)}>
+      <form
+        className="w-fit"
+        onSubmit={handleSubmit(onSubmit)}
+        encType="multipart/form-data"
+      >
         <Form3ColContainer>
           <Label name="Tên sản phẩm" />
           <Input
@@ -90,7 +91,7 @@ function CreateProductForm({ setShowModal, editProduct = {} }) {
           <Input
             type="number"
             register={{
-              ...register("revenue", {
+              ...register("commission", {
                 required: "Dòng này là bắt buộc",
                 min: { value: 0, message: "Hoa hồng là số dương < giá tiền" },
                 validate: (value) =>

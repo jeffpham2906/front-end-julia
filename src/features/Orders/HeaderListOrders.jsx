@@ -5,7 +5,7 @@ function HeaderListOrders() {
   const { orders } = useGetOrders();
 
   return (
-    <div className="grid grid-cols-[auto,3fr,1fr,1fr,2.5fr,1fr,1rem] items-center gap-x-4 gap-y-2 sm:grid-cols-[auto,2fr,1fr,1fr] sm:text-sm">
+    <div className="mb-4 grid grid-cols-[auto,3fr,1fr,1fr,2.5fr,1fr,1rem] items-center gap-x-4 gap-y-2 sm:grid-cols-[auto,2fr,1fr,1fr] sm:text-sm">
       <div>
         <input
           onChange={(e) => {

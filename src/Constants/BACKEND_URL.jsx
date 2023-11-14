@@ -1,1 +1,1 @@
-export const BACKEND_URL = 'http://localhost:9000/api'
+export const BACKEND_URL = 'https://julia-backend-m5fz.onrender.com/api'

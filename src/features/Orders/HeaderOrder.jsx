@@ -9,11 +9,12 @@ import ModalStaffs from "./ModalStaffs";
 import useSendCheckRequest from "./useSendCheckRequest";
 import Modal from "../../ui/Modal";
 import Spinner from "../../ui/Spinner";
-import { useSearchParams } from "react-router-dom";
+// import { useSearchParams } from "react-router-dom";
 function HeaderOrder() {
   const { isStaff } = JSON.parse(sessionStorage.getItem("user"));
-  const {searchParams} = useSearchParams()
-  console.log(searchParams)
+  // const {searchParams} = useSearchParams()
+  // console.log(searchParams)
+  console.log(import.meta.env.VITE_URL)
   const { choosenListOrders } = useOrder();
   const [showStaffs, setShowStaffs] = useState(false);
   const { sendCheckRequest, isLoading } = useSendCheckRequest();

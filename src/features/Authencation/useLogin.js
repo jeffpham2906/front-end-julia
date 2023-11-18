@@ -22,6 +22,7 @@ function useLogin() {
             if (resData.status === 'fail') throw new Error(resData.message)
             setOnSuccess(true)
             sessionStorage.setItem('user', JSON.stringify(resData.data.user))
+            sessionStorage.setItem('token', JSON.stringify(resData.token))
         } catch (error) {
             console.error(error.message)
             toast.error(error.message)

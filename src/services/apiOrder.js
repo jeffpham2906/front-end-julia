@@ -3,11 +3,16 @@ import toast from "react-hot-toast";
 import { BACKEND_URL } from "../Constants/BACKEND_URL";
 
 export async function getAllOrders({ filter }) {
+  const token = JSON.parse(sessionStorage.getItem('token'))
+
   try {
     const res = await fetch(`${BACKEND_URL}/orders${filter ? `?${filter?.field}=${filter?.value}` : ''}`, {
       mode: "cors",
       method: "GET",
       credentials: 'include',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
     })
     const data = await res.json()
     if (data.status === "fail") throw new Error(data.message || "Error on server")

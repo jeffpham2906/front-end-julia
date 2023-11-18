@@ -1,10 +1,8 @@
 
 import toast from "react-hot-toast";
 import { BACKEND_URL } from "../Constants/BACKEND_URL";
-
+const token = JSON.parse(sessionStorage.getItem('token'))
 export async function getAllOrders({ filter }) {
-  const token = JSON.parse(sessionStorage.getItem('token'))
-
   try {
     const res = await fetch(`${BACKEND_URL}/orders${filter ? `?${filter?.field}=${filter?.value}` : ''}`, {
       mode: "cors",
@@ -30,7 +28,8 @@ export async function sendCheckRequest(data) {
       mode: 'cors',
       credentials: 'include',
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify({ orders: data })
     })
@@ -49,7 +48,8 @@ export async function confirmOrders(data) {
       mode: 'cors',
       credentials: 'include',
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify({ orders: data })
     })
@@ -70,7 +70,8 @@ export async function createOrder({ data }) {
       mode: 'cors',
       credentials: 'include',
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify(data)
     })
@@ -86,7 +87,10 @@ export async function deleteOrder({ id }) {
   const res = await fetch(`${BACKEND_URL}/orders/${id}`, {
     method: "DELETE",
     mode: 'cors',
-    credentials: 'include'
+    credentials: 'include',
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
   })
   if (!res.ok) throw new Error('Something went wrong')
   const data = await res.json()
@@ -103,7 +107,8 @@ export async function addStaffOrder({ data }) {
       mode: 'cors',
       credentials: 'include',
       headers: {
-        'Content-Type': "application/json"
+        'Content-Type': "application/json",
+        'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify({ orders: data.orders })
     })

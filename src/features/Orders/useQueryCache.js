@@ -21,28 +21,7 @@ function useQueryCache() {
         return queryClient.setQueryData(['orders', null], replaceArr)
     }
 
-    function getCacheAllOrders() {
-        return orderArr
-    }
-
-    // function getNoDistributeOrder(e) {
-    //     let replaceArr;
-    //     if (e === 'Chưa phân phối') {
-    //         replaceArr = orderArr?.filter(order => order.staff_name === '')
-    //     }
-    //     else if (e === 'Đã giao') {
-    //         console.log(123)
-    //         replaceArr = orderArr?.filter(order => order.staff_name !== '')
-    //     } else {
-    //         return queryClient.setQueryData(['orders'], orderArr)
-    //     }
-    //     console.log(orderArr)
-    //     console.log(replaceArr)
-    //     return queryClient.setQueryData(['orders'], replaceArr)
-    // }
-
-
-    return { addOrder, cancelOrder, getCacheAllOrders }
+    return { addOrder, cancelOrder }
 }
 
 export default useQueryCache

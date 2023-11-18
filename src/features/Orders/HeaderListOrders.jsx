@@ -20,7 +20,7 @@ function HeaderListOrders() {
       <div>ID</div>
       <div>Size</div>
       <div>Form</div>
-      <div className="pl-2 sm:hidden">Ghi chú</div>
+      <div className="sm:hidden">Ghi chú</div>
       <div className="sm:hidden">Trạng thái</div>
       <div className="sm:hidden"></div>
     </div>

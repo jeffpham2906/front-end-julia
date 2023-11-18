@@ -18,9 +18,7 @@ const listStaffFilter = [
 ];
 function NavOrders() {
   const { isStaff } = JSON.parse(sessionStorage.getItem("user"));
-  // const handleFilter = (e) => {
-  //   getNoDistributeOrder(e);
-  // };
+  
   return (
     <div className="mb-8 flex items-center justify-between gap-4 sm:text-sm">
       <FilterOrder lists={isStaff ? listStaffFilter : listAdminFilter} />

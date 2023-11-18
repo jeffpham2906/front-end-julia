@@ -1,23 +1,20 @@
 import { HiOutlineReceiptRefund } from "react-icons/hi2";
 import { useState } from "react";
-import { useOrder } from "../../Contexts/OrdersProvider";
 
 import HeaderWrapper from "../../ui/HeaderWrapper";
 import SearchForm from "../../ui/SearchForm";
 import Button from "../../ui/Button";
 import ModalStaffs from "./ModalStaffs";
-import useSendCheckRequest from "./useSendCheckRequest";
 import Modal from "../../ui/Modal";
 import Spinner from "../../ui/Spinner";
-// import { useSearchParams } from "react-router-dom";
+import useHandleRequest from "./useHandleRequest";
 function HeaderOrder() {
   const { isStaff } = JSON.parse(sessionStorage.getItem("user"));
-  // const {searchParams} = useSearchParams()
-  // console.log(searchParams)
-  console.log(import.meta.env.VITE_URL)
-  const { choosenListOrders } = useOrder();
   const [showStaffs, setShowStaffs] = useState(false);
-  const { sendCheckRequest, isLoading } = useSendCheckRequest();
+
+  const { isLoading, handleRequest, choosenListOrders, isPendingList } =
+    useHandleRequest();
+
   return (
     <>
       {showStaffs && <ModalStaffs setShowStaffs={setShowStaffs} />}
@@ -42,12 +39,19 @@ function HeaderOrder() {
             }
             disableBtn={choosenListOrders.length === 0}
             onClick={() => {
-              if (!isStaff) return setShowStaffs(true);
-              sendCheckRequest(choosenListOrders);
+              !isStaff
+                ? isPendingList
+                  ? handleRequest()
+                  : setShowStaffs(true)
+                : handleRequest();
             }}
           >
             <p className="sm:hidden">
-              {isStaff ? "Yêu cầu duyệt" : "Phân phối"}
+              {isStaff
+                ? "Yêu cầu duyệt"
+                : isPendingList
+                ? "Duyet"
+                : "Phân phối"}
             </p>
             {choosenListOrders.length > 0 ? choosenListOrders.length : ""}
           </Button>

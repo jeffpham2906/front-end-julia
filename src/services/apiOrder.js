@@ -21,6 +21,25 @@ export async function getAllOrders({ filter }) {
 export async function sendCheckRequest(data) {
   try {
     const res = await fetch(`${BACKEND_URL}/orders`, {
+      method: "PATCH",
+      mode: 'cors',
+      credentials: 'include',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ orders: data })
+    })
+    const resData = await res.json()
+    return resData
+  } catch (error) {
+    console.error(error)
+    toast.error(error.message)
+  }
+}
+
+export async function confirmOrders(data) {
+  try {
+    const res = await fetch(`${BACKEND_URL}/orders`, {
       method: "PUT",
       mode: 'cors',
       credentials: 'include',
@@ -36,6 +55,7 @@ export async function sendCheckRequest(data) {
     toast.error(error.message)
   }
 }
+
 
 
 export async function createOrder({ data }) {

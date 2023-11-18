@@ -9,6 +9,7 @@ import {
   HiOutlineArrowsUpDown,
   HiOutlineSquaresPlus,
 } from "react-icons/hi2";
+import { IMAGE_URL_API } from "../Constants/IMAGE_URL_API";
 
 function MainNav({ onCloseModal }) {
   const listNavOptions = [
@@ -43,7 +44,11 @@ function MainNav({ onCloseModal }) {
   return (
     <>
       <div className="mb-10 flex items-end justify-center text-3xl">
-        <img src="src/assets/logo.png" alt="logo" className="w-40 md:w-32" />
+        <img
+          src={`${IMAGE_URL_API}/assets/logo.png`}
+          alt="logo"
+          className="w-40 md:w-32"
+        />
       </div>
       <nav>
         <ul className="flex flex-col gap-4 text-xl ">

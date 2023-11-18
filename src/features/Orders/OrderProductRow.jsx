@@ -59,7 +59,7 @@ function OrderProductRow({ product, isChanging, setOrder }) {
         ) : (
           <>
             <img
-              src={`${IMAGE_URL_API}/${product.image}`}
+              src={`${IMAGE_URL_API}/products/${product.image}`}
               alt="anhsp"
               className="h-16 w-full cursor-pointer rounded-md sm:hidden"
               onClick={() => {

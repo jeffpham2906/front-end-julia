@@ -9,4 +9,4 @@ const url =()=>{
     }
     return
 }
-export const IMAGE_URL_API = `${url()}images/products`
+export const IMAGE_URL_API = `${url()}images/`

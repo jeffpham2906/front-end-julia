@@ -18,7 +18,7 @@ function CreateProductForm({ setShowModal, editProduct = {} }) {
   const { register, handleSubmit, reset, getValues, formState } = useForm({
     defaultValues: isSessionEdit ? editValues : {},
   });
-  const { errors, isDirty, dirtyFields, defaultValues } = formState;
+  const { errors, isDirty, dirtyFields } = formState;
 
   const { isCreating, createProduct } = useCreateProduct({
     setShowModal,

@@ -13,7 +13,6 @@ import DropDownMenu from "../../ui/DropDownMenu";
 import { FormatVND } from "../../utils/FormatVND";
 import { IMAGE_URL_API } from "../../Constants/IMAGE_URL_API";
 import { useState } from "react";
-import toast from "react-hot-toast";
 import useDeleteProduct from "./useDeleteProduct";
 
 function ProductRow({ product }) {
@@ -36,7 +35,7 @@ function ProductRow({ product }) {
       )}
       <div className=" flex items-center justify-center">
         <img
-          src={`${IMAGE_URL_API}/${image}`}
+          src={`${IMAGE_URL_API}/products/${image}`}
           alt="anh san pham"
           className="h-20 w-20 rounded-md sm:h-14 sm:w-14"
         />

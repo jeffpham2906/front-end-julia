@@ -110,15 +110,17 @@ function OrderRow({ order: data }) {
             })
           }
         />
-        <div className="col-start-3 col-end-5 sm:col-auto"></div>
-        <p className="text-sm sm:hidden">
+        <div className="col-start-3 col-end-5 sm:hidden"></div>
+        <p className="text-sm sm:col-start-3 sm:col-end-5">
           {order.status === "completed"
             ? "Đã hoàn thành"
             : order.status === "pending"
             ? "Chờ duyệt"
-            : ""}
+            : order.status === "distributed"
+            ? "Đã giao"
+            : "Chưa giao"}
         </p>
-        <p className="text-sm sm:hidden">{order?.staff_name || "Chưa chia"}</p>
+        <p className="text-sm sm:hidden">{order?.staff_name || " "}</p>
 
         {/** Hidden action button when adding or updating */}
         {!isChanging ? (

@@ -40,7 +40,7 @@ function ModalSearchProduct({ onCloseModal, updateProduct }) {
             >
               <span className="flex items-center gap-2">
                 <img
-                  src={`${IMAGE_URL_API}/${pro.image}`}
+                  src={`${IMAGE_URL_API}products/${pro.image}`}
                   alt="anh sp"
                   className="h-12 w-14 rounded-md"
                 />

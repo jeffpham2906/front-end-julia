@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       backgroundImage: {
-        'hero-section': "url(/src/assets/background.jpg)"
+        'hero-section': "url(/background.jpg)"
       }
     },
     screens: {

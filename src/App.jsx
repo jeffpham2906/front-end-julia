@@ -36,8 +36,8 @@ function App() {
         <Routes>
           <Route element={<AuthPage />}>
             <Route index element={<Navigate replace to="login" />} />
-            <Route path="login" element={<LoginForm />} />
-            <Route path="signup" element={<SignUpForm />} />
+            <Route path="/login" element={<LoginForm />} />
+            <Route path="/signup" element={<SignUpForm />} />
           </Route>
           <Route
             element={
@@ -47,7 +47,7 @@ function App() {
             }
           >
             <Route index element={<Navigate replace to="home" />} />
-            <Route path="home" element={<HomePage />} />
+            <Route path="/home" element={<HomePage />} />
             <Route
               path="orders"
               element={
@@ -56,11 +56,11 @@ function App() {
                 </OrdersProvider>
               }
             />
-            <Route path="salary" element={<SalaryPage />} />
-            <Route path="users" element={<UserPage />} />
-            <Route path="checking" element={<CheckingPage />} />
-            <Route path="gallery" element={<Gallery />} />
-            <Route path="settings" element={<SettingsPage />} />
+            <Route path="/salary" element={<SalaryPage />} />
+            <Route path="/users" element={<UserPage />} />
+            <Route path="/checking" element={<CheckingPage />} />
+            <Route path="/gallery" element={<Gallery />} />
+            <Route path="/settings" element={<SettingsPage />} />
           </Route>
           <Route path="*" element={<p>Page do not exist</p>}></Route>
         </Routes>

@@ -1,9 +1,9 @@
 import toast from "react-hot-toast";
 import { BACKEND_URL } from "../Constants/BACKEND_URL";
-const token = JSON.parse(sessionStorage.getItem('token'))
+import { getToken } from "./apiOrder";
 export async function getAllStaffs() {
     try {
-        const res = await fetch(`${BACKEND_URL}/users`, { credentials: 'include', headers: { 'Authorization': `Bearer ${token}` } })
+        const res = await fetch(`${BACKEND_URL}/users`, { credentials: 'include', headers: { 'Authorization': `Bearer ${getToken()}` } })
         const data = await res.json()
         return data.staffs || []
     } catch (error) {
@@ -20,7 +20,7 @@ export async function signUpStaffAccount(data) {
             credentials: 'include',
             headers: {
                 'Content-Type': "application/json",
-                'Authorization': `Bearer ${token}`
+                'Authorization': `Bearer ${getToken()}`
             },
             body: JSON.stringify(data)
         })

@@ -1,13 +1,13 @@
 // import supabase from './supabase'
 import { BACKEND_URL } from '../Constants/BACKEND_URL'
 import toast from 'react-hot-toast'
-const token = JSON.parse(sessionStorage.getItem('token'))
+import { getToken } from './apiOrder'
 export async function getProducts() {
     try {
         const res = await fetch(`${BACKEND_URL}/products`, {
             credentials: 'include',
             headers: {
-                'Authorization': `Bearer ${token}`
+                'Authorization': `Bearer ${getToken()}`
             }
         })
         const data = await res.json()
@@ -27,7 +27,7 @@ export async function createEditProduct(formData) {
             mode: 'cors',
             credentials: 'include',
             headers: {
-                'Authorization': `Bearer ${token}`
+                'Authorization': `Bearer ${getToken()}`
             },
             body: formData
         })
@@ -45,7 +45,7 @@ export async function deleteProduct(product_id) {
             mode: 'cors',
             credentials: 'include',
             headers: {
-                'Authorization': `Bearer ${token}`
+                'Authorization': `Bearer ${getToken()}`
             }
         })
         const data = await res.json()
@@ -63,7 +63,7 @@ export async function updateProduct({ formData, editProductID }) {
             mode: "cors",
             credentials: 'include',
             headers: {
-                'Authorization': `Bearer ${token}`
+                'Authorization': `Bearer ${getToken()}`
             },
             body: formData
         })

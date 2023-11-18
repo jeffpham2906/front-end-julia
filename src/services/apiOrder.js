@@ -1,15 +1,18 @@
 
 import toast from "react-hot-toast";
 import { BACKEND_URL } from "../Constants/BACKEND_URL";
-const token = JSON.parse(sessionStorage.getItem('token'))
+export function getToken() {
+  return JSON.parse(sessionStorage.getItem('token'))
+}
 export async function getAllOrders({ filter }) {
+
   try {
     const res = await fetch(`${BACKEND_URL}/orders${filter ? `?${filter?.field}=${filter?.value}` : ''}`, {
       mode: "cors",
       method: "GET",
       credentials: 'include',
       headers: {
-        'Authorization': `Bearer ${token}`
+        'Authorization': `Bearer ${getToken()}`
       }
     })
     const data = await res.json()
@@ -29,7 +32,7 @@ export async function sendCheckRequest(data) {
       credentials: 'include',
       headers: {
         "Content-Type": "application/json",
-        'Authorization': `Bearer ${token}`
+        'Authorization': `Bearer ${getToken()}`
       },
       body: JSON.stringify({ orders: data })
     })
@@ -49,7 +52,7 @@ export async function confirmOrders(data) {
       credentials: 'include',
       headers: {
         "Content-Type": "application/json",
-        'Authorization': `Bearer ${token}`
+        'Authorization': `Bearer ${getToken()}`
       },
       body: JSON.stringify({ orders: data })
     })
@@ -71,7 +74,7 @@ export async function createOrder({ data }) {
       credentials: 'include',
       headers: {
         "Content-Type": "application/json",
-        'Authorization': `Bearer ${token}`
+        'Authorization': `Bearer ${getToken()}`
       },
       body: JSON.stringify(data)
     })
@@ -89,7 +92,7 @@ export async function deleteOrder({ id }) {
     mode: 'cors',
     credentials: 'include',
     headers: {
-      'Authorization': `Bearer ${token}`
+      'Authorization': `Bearer ${getToken()}`
     }
   })
   if (!res.ok) throw new Error('Something went wrong')
@@ -108,7 +111,7 @@ export async function addStaffOrder({ data }) {
       credentials: 'include',
       headers: {
         'Content-Type': "application/json",
-        'Authorization': `Bearer ${token}`
+        'Authorization': `Bearer ${getToken()}`
       },
       body: JSON.stringify({ orders: data.orders })
     })
